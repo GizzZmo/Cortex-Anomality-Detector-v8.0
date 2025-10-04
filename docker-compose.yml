@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - cortex-net
+
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend/db:/usr/src/app/db
+    networks:
+      - cortex-net
+    command: >
+      sh -c "npx prisma db push --accept-data-loss && npm start"
+
+  ai_service:
+    build: ./ai_service
+    ports:
+      - "5001:5001"
+    networks:
+      - cortex-net
+    environment:
+      # It's better to pass the API key from the backend per-request
+      # but you could set a default one here if needed
+      # GEMINI_API_KEY: "YOUR_GOOGLE_AI_API_KEY"
+      FLASK_DEBUG: 1
+
+networks:
+  cortex-net:
+    driver: bridge
