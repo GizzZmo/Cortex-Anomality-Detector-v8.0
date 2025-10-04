@@ -19,7 +19,7 @@ services:
     networks:
       - cortex-net
     command: >
-      sh -c "npx prisma db push --accept-data-loss && npm start"
+      sh -c "npx prisma db push --accept-data-loss --schema=./db/prisma/schema.prisma && npm start"
 
   ai_service:
     build: ./ai_service
