@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: #00ffcc;
+    --secondary-color: #ff00ff;
+    --background-color: #0a0c10;
+    --text-color: #e0e0e0;
+    --danger-color: #ff3333;
+    --font-family: 'Share Tech Mono', monospace;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.cyber-shadow { 
+    text-shadow: 0 0 5px var(--primary-color); 
+}
+
+.cyber-shadow-secondary { 
+    text-shadow: 0 0 5px var(--secondary-color); 
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0) 0, rgba(255,255,255,0.05) 1px, rgba(0,0,0,0.1) 2px);
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.spinner {
+    width: 48px; 
+    height: 48px; 
+    border: 5px solid var(--primary-color); 
+    border-bottom-color: transparent;
+    border-radius: 50%; 
+    display: inline-block; 
+    box-sizing: border-box; 
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}

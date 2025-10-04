@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../database.sqlite"
+}
+
+model KnownFace {
+  id        Int      @id @default(autoincrement())
+  label     String   @unique
+  descriptor String   // JSON string of face descriptor array
+  createdAt DateTime @default(now())
+}
+
+model SystemLog {
+  id        Int      @id @default(autoincrement())
+  message   String
+  type      String   // "info", "warning", "danger", "success"
+  timestamp DateTime @default(now())
+}
