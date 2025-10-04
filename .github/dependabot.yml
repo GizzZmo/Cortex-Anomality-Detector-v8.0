@@ -1,0 +1,111 @@
+version: 2
+updates:
+  # Frontend npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "frontend"
+    reviewers:
+      - "GizzZmo"
+    commit-message:
+      prefix: "frontend"
+
+  # Backend npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "backend"
+    reviewers:
+      - "GizzZmo"
+    commit-message:
+      prefix: "backend"
+
+  # AI Service pip dependencies
+  - package-ecosystem: "pip"
+    directory: "/ai_service"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ai-service"
+      - "python"
+    reviewers:
+      - "GizzZmo"
+    commit-message:
+      prefix: "ai-service"
+
+  # Frontend Dockerfile
+  - package-ecosystem: "docker"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "docker"
+      - "frontend"
+    reviewers:
+      - "GizzZmo"
+    commit-message:
+      prefix: "docker(frontend)"
+
+  # Backend Dockerfile
+  - package-ecosystem: "docker"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "docker"
+      - "backend"
+    reviewers:
+      - "GizzZmo"
+    commit-message:
+      prefix: "docker(backend)"
+
+  # AI Service Dockerfile
+  - package-ecosystem: "docker"
+    directory: "/ai_service"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "docker"
+      - "ai-service"
+    reviewers:
+      - "GizzZmo"
+    commit-message:
+      prefix: "docker(ai-service)"
+
+  # Docker Compose
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "docker"
+      - "infrastructure"
+    reviewers:
+      - "GizzZmo"
+    commit-message:
+      prefix: "docker-compose"
