@@ -78,6 +78,19 @@ jobs:
       working-directory: ./frontend
       run: npm run build
     
+    - name: Generate Build Summary
+      working-directory: ./frontend
+      run: |
+        echo "### Frontend Build Artifacts 🚀" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Build completed successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Build Size:**" >> $GITHUB_STEP_SUMMARY
+        du -sh build/ >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Files:**" >> $GITHUB_STEP_SUMMARY
+        ls -lh build/ | tail -n +2 | wc -l | xargs -I {} echo "{} files generated" >> $GITHUB_STEP_SUMMARY
+    
     - name: Upload Frontend Build Artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -154,6 +167,19 @@ jobs:
         push: false
         tags: cortex-ai:test
         outputs: type=docker,dest=/tmp/cortex-ai.tar
+    
+    - name: Generate Docker Build Summary
+      run: |
+        echo "### Docker Image Artifacts 🐳" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "All Docker images built successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Image Sizes:**" >> $GITHUB_STEP_SUMMARY
+        echo "- Frontend: $(du -sh /tmp/cortex-frontend.tar | cut -f1)" >> $GITHUB_STEP_SUMMARY
+        echo "- Backend: $(du -sh /tmp/cortex-backend.tar | cut -f1)" >> $GITHUB_STEP_SUMMARY
+        echo "- AI Service: $(du -sh /tmp/cortex-ai.tar | cut -f1)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "These images are available as workflow artifacts for 7 days." >> $GITHUB_STEP_SUMMARY
     
     - name: Upload Docker Images as Artifacts
       uses: actions/upload-artifact@v3
