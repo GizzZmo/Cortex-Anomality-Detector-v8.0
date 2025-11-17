@@ -37,6 +37,16 @@ jobs:
     - name: Run tests
       working-directory: ./backend
       run: npm test || echo "No tests configured yet"
+    
+    - name: Upload Backend Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: backend-artifacts
+        path: |
+          backend/node_modules/.prisma/
+          backend/package.json
+          backend/package-lock.json
+        retention-days: 7
 
   lint-and-test-frontend:
     name: Frontend Tests
@@ -67,6 +77,13 @@ jobs:
     - name: Build
       working-directory: ./frontend
       run: npm run build
+    
+    - name: Upload Frontend Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: frontend-build
+        path: frontend/build/
+        retention-days: 30
 
   test-ai-service:
     name: AI Service Tests
@@ -120,6 +137,7 @@ jobs:
         context: ./frontend
         push: false
         tags: cortex-frontend:test
+        outputs: type=docker,dest=/tmp/cortex-frontend.tar
     
     - name: Build Backend
       uses: docker/build-push-action@v4
@@ -127,6 +145,7 @@ jobs:
         context: ./backend
         push: false
         tags: cortex-backend:test
+        outputs: type=docker,dest=/tmp/cortex-backend.tar
     
     - name: Build AI Service
       uses: docker/build-push-action@v4
@@ -134,6 +153,17 @@ jobs:
         context: ./ai_service
         push: false
         tags: cortex-ai:test
+        outputs: type=docker,dest=/tmp/cortex-ai.tar
+    
+    - name: Upload Docker Images as Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: docker-images
+        path: |
+          /tmp/cortex-frontend.tar
+          /tmp/cortex-backend.tar
+          /tmp/cortex-ai.tar
+        retention-days: 7
     
     - name: Test Docker Compose
       run: |
