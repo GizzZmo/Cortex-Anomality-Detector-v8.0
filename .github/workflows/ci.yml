@@ -39,7 +39,7 @@ jobs:
       run: npm test || echo "No tests configured yet"
     
     - name: Upload Backend Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: backend-artifacts
         path: |
@@ -92,7 +92,7 @@ jobs:
         ls -lh build/ | tail -n +2 | wc -l | xargs -I {} echo "{} files generated" >> $GITHUB_STEP_SUMMARY
     
     - name: Upload Frontend Build Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: frontend-build
         path: frontend/build/
@@ -182,7 +182,7 @@ jobs:
         echo "These images are available as workflow artifacts for 7 days." >> $GITHUB_STEP_SUMMARY
     
     - name: Upload Docker Images as Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: docker-images
         path: |
